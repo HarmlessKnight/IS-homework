@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Eshop.Domain.Domain_Models.Ticket>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+@using Eshop.Domain.Domain_Models
+@using Microsoft.AspNetCore.Mvc
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using System.Collections.Generic
+@using System.Linq
+
+
+<div class="justify-content-center text-center" style="font-size: 24px; font-weight: bold;">Available Movies</div>
+
+<div class="container">
+    <div class="m-3">
+        <a class="btn btn-success btn-lg d-block mx-auto mb-3" asp-action="Create">Insert New Ticket</a>
+    </div>
+
+    @{
+        int count = 1;
+    }
+
+    <div class="row justify-content-center">
+        @foreach (var ticket in Model)
+        {
+            <div class="card mx-3" style="width: 18rem; margin-bottom: 20px;">
+                <img class="card-img-top" src="@ticket.MovieImage" style="height:80%;max-width:90%" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@ticket.MovieTitle</h5>
+                    <p class="card-text">@ticket.Price</p>
+                    <a href="/Tickets/AddToCart?Id=@ticket.Id&CartId=1" class="btn btn-primary btn-lg btn-block">Add To Cart</a>
+                </div>
+            </div>
+
+            @if (count % 3 == 0)
+            {
+                @:</div><div class="row justify-content-center">
+            }
+
+            count++;
+        }
+    </div>
+</div>

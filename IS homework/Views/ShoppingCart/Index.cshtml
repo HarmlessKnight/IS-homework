@@ -1,0 +1,72 @@
+﻿@model Eshop.Domain.DTO.ShoppingCartDTO
+
+<h1>Cart</h1>
+
+@if (Model.TicketsInShoppingCart.Count() == 0)
+{
+    <h5>No Tickets In The Cart</h5>
+}
+else
+{
+    <div class="row">
+        <div class="form-group">
+            <a href="/ShoppingCart/OrderNow" class="btn btn-warning">Order Now</a>
+        </div>
+    </div>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th class="col-md-1">
+                    #
+                </th>
+                <th class="col">
+                    Movie Name
+                </th>
+                <th class="col">
+                    Quantity
+                </th>
+                <th class="col">
+                    Price
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var i = 1;
+                foreach (var item in Model.TicketsInShoppingCart)
+                {
+                    <tr>
+                        <td>
+                            @i
+                        </td>
+                        <td>
+                            @item.Ticket.MovieTitle
+                        </td>
+                        <td>
+                            @item.Quantity
+                        </td>
+                        <td>
+                            @item.Ticket.Price
+                        </td>
+                        <td>
+                            <a class="btn btn-danger" href="/ShoppingCart/DeleteFromShoppingCart/@item.Ticket.Id">Delete</a>
+                        </td>
+                    </tr>
+                    i++;
+                }
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Total: </th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>@Model.TotalPrice</th>
+            </tr>
+        </tfoot>
+    </table>
+}
